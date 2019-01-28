@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "953844361591",
+    "firebase_url": "https://gps-tracking-f46e7.firebaseio.com",
+    "project_id": "gps-tracking-f46e7",
+    "storage_bucket": "gps-tracking-f46e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953844361591:android:b6c56c5a42c4f90e",
+        "android_client_info": {
+          "package_name": "com.emnix.gpstracking01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953844361591-aq9v24eng8lsbqeu7n2mggbbj92ocrdf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.emnix.gpstracking01",
+            "certificate_hash": "0a3fd35886c92e96e33c3126ed15b900241ebb0f"
+          }
+        },
+        {
+          "client_id": "953844361591-u6v9d97rspb8h93fafur4apu3rnelbnd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYK_iBSC5Zay6qNCbFA6ACWmPxPuAE5r0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953844361591-u6v9d97rspb8h93fafur4apu3rnelbnd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

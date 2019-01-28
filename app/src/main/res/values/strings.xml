@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">GPS Tracking 01</string>
+    <string name="app_package">com.emnix.gpstracking01</string>
+    <string name="PREFS_FILENAME">com.emnix.gpstracking01.prefs</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnGetLocation">Get location</string>
+
+    <string name="latitude_label">Latitude: %f</string>
+    <string name="longitude_label">Longitude: %f</string>
+    <string name="no_location_detected">
+        No location detected. Make sure location is enabled on the device.
+    </string>
+    <string name="permission_denied_explanation">
+        Permission was denied, but is needed for core functionality.
+    </string>
+    <string name="permission_rationale">
+        Location permission is needed for core functionality
+    </string>
+    <string name="settings">Settings</string>
+
+    <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
+        weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
+        InstanceID token to logcat.</string>
+    <string name="subscribe_to_weather">Subscribe To Weather</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed to weather topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">GPS tracking</string>
+    <string name="msg_subscribe_failed">Failed to subscribe to gps topic</string>
+    <string name="fcm_message">FCM Message</string>
+    <string name="SENDER_ID">1070375339094</string>
+
+</resources>

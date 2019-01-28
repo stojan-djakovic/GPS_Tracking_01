@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="20dp">
+
+    <TextView
+            android:text="UserName/Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/txtConfigUsername"/>
+    <TextView
+            android:text="Device Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView2"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txtConfigDeviceName"/>
+    <TextView
+            android:text="Auto generated device ID (read only)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView10"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txtDeviceID" android:inputType="none" android:selectAllOnFocus="false"
+            android:textSize="10sp" android:singleLine="true" android:editable="false"
+            android:focusableInTouchMode="false" />
+    <TextView
+            android:text="Normail update interval (miliseconds)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView5"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/txtConfigNormalInterval" android:text="10000"/>
+    <TextView
+            android:text="Fastest update interval (miliseconds)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView6"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/txtConfigFastInterval" android:text="5000"/>
+    <TextView
+            android:text="GPS_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView7" android:layout_marginTop="20dp"/>
+    <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup">
+
+        <RadioButton
+                android:text="PRIORITY_HIGH_ACCURACY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/radioButtonHigh"/>
+        <RadioButton
+                android:text="PRIORITY_BALANCED_POWER_ACCURACY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/radioButtonBalanced"/>
+
+    </RadioGroup>
+
+
+    <Button
+            android:text="SAVE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/button2" android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF" android:textStyle="bold"
+            android:onClick="saveSettings"/>
+
+</LinearLayout>
