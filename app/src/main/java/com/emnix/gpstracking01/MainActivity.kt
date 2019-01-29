@@ -1,8 +1,10 @@
 package com.emnix.gpstracking01
 
+import android.Manifest
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.SharedPreferences
@@ -28,10 +30,14 @@ import com.android.volley.Request
 import com.android.volley.Response
 import android.os.Build;
 import android.os.Handler
+import android.telephony.SmsManager
+import android.telephony.TelephonyManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.Math.abs
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -93,6 +99,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+    if (checkAndRequestPermissions()) {
+        // carry on the normal flow, as the case of  permissions  granted.
+        Log.d(TAG,"sms permission ok!")
+    }
     /*
     // If Get In Into Other Activity
     var Intent1: Intent
@@ -244,9 +254,58 @@ FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  On
     }
 
 
+  fun checkAndRequestPermissions(): Boolean {
+        val permissionSendMessage = ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+        val receiveSMS = ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+        val readSMS = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
+
+        var listPermissionsNeeded = arrayListOf<String>()
+
+        if (receiveSMS != PackageManager.PERMISSION_GRANTED) {
+              Log.d(TAG, "permission - receiveSMS not granted")
+            listPermissionsNeeded.add(Manifest.permission.RECEIVE_SMS);
+        }
+        if (readSMS != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "permission - readSMS not granted")
+            listPermissionsNeeded.add(Manifest.permission.READ_SMS);
+
+        }
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "permission - sendSMS not granted")
+            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
+        }
+
+        if (!listPermissionsNeeded.isNullOrEmpty()) {
+              ActivityCompat.requestPermissions(this,
+                  arrayOf("Manifest.permission.SEND_SMS","Manifest.permission.RECEIVE_SMS","Manifest.permission.READ_SMS"),
+                  101);
+              return false;
+         }
+         return true;
+     }
+
 
     override fun onStart() {
         super.onStart()
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_PHONE_STATE)) {
+            } else { ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_STATE), 2) } }
+
+        try{
+            val tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+            val IMEI = tm.getImei()
+            if (IMEI != null) {
+                Toast.makeText(
+                    this, "IMEI number: " + IMEI,
+                    Toast.LENGTH_LONG
+                ).show()
+                this.getSharedPreferences("_", MODE_PRIVATE).edit().putString("imei", IMEI).apply();
+
+            }
+        }catch (ex:Exception){
+            Log.e(TAG,"could not get imei: $ex.message")
+        }
+
 
         if (!checkPermissions()) {
             requestPermissions()
@@ -473,6 +532,10 @@ FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  On
     }
 
     fun btnClick(View: View) {
+        val phoneNo:String = "+381649180279"
+        val smsManager = SmsManager.getDefault() as SmsManager
+        smsManager.sendTextMessage(phoneNo, null, "sms message", null, null)
+
         sendLocationToURL()
     }
 
@@ -487,9 +550,9 @@ FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  On
 
         val queue = Volley.newRequestQueue(this)
 if (userName != "") {
-    if ((lastLocationLat != lastSendedLocationLat) || (lastLocationLon != lastSendedLocationLon)) {
-        val query_string =
-            "deviceID=$deviceID&user=$userName&lat=$lastLocationLat&lon=$lastLocationLon&ni=$normalInterval&fi=$fastInterval&deviceName=$deviceName&priority=$configGpsPriority&token=$fb"
+    if (abs(lastLocationLat) - abs(lastSendedLocationLat) > 0.001 || abs(lastLocationLon) - abs(lastSendedLocationLon) > 0.001){
+    //if ((lastLocationLat != lastSendedLocationLat) || (lastLocationLon != lastSendedLocationLon)) {
+        val query_string = "deviceID=$deviceID&user=$userName&lat=$lastLocationLat&lon=$lastLocationLon&ni=$normalInterval&fi=$fastInterval&deviceName=$deviceName&priority=$configGpsPriority&token=$fb"
         val query = Uri.encode(query_string)
 
         val url = "http://gps.emnix.com/post/$query"
